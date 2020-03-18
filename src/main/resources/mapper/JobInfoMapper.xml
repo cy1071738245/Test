@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- 将mapper接口和配置文件对应起来 -->
+<mapper namespace="com.cy.mapper.JobInfoMapper">
+	
+	<resultMap type="com.cy.entity.JobInfo" id="jobInfoResultMap">
+		<id property="jobInfoId" column="JOBINFO_ID" />
+		<result property="jobInfoName" column="JOBINFO_NAME" />
+		<result property="departmentId" column="DEPARTMENT_ID" />
+	</resultMap>
+	
+	<select id="allJobInfo" resultMap="jobInfoResultMap">
+	  	SELECT *  
+	  	FROM CRM_JOBINFO
+	  	ORDER BY DEPARTMENT_ID,JOBINFO_ID
+	</select>
+  
+  	<select id="checkJobInfoName" resultMap="jobInfoResultMap">
+	  	SELECT *  
+	  	FROM CRM_JOBINFO
+	  	where JOBINFO_NAME = #{jobInfoName}
+	</select>
+  
+  	<update id="updateJobInfo">
+  		update CRM_JOBINFO 
+  		<set>
+			<if test="jobInfo.jobInfoName != null" >
+				JOBINFO_NAME = #{jobInfo.jobInfoName},
+			</if>
+			<if test="jobInfo.departmentId != 0" >
+				DEPARTMENT_ID = #{jobInfo.departmentId},
+			</if>
+  		</set>
+  		<!-- set JOBINFO_NAME = #{jobInfo.jobInfoName},DEPARTMENT_ID = #{jobInfo.departmentId} -->
+  		where JOBINFO_ID = #{jobInfo.jobInfoId}
+  	</update>
+  
+  	<insert id="insertJobInfo">
+  		insert into CRM_JOBINFO(JOBINFO_NAME,DEPARTMENT_ID) 
+  		values(#{jobInfo.jobInfoName},#{jobInfo.departmentId})
+  	</insert>
+  	
+  	<delete id="deleteJobInfo">
+  		delete from CRM_JOBINFO
+  		where JOBINFO_ID = #{jobInfo.jobInfoId}
+  	</delete>
+  	
+  	<select id="queryDepartByJobInfoId" resultMap="jobInfoResultMap">
+  		select * from CRM_JOBINFO
+  		where JOBINFO_ID = #{jobInfoId}
+  	</select>
+  	
+  	<select id="searchJobInfo" resultMap="jobInfoResultMap">
+  		SELECT * FROM CRM_JOBINFO 
+  		WHERE JOBINFO_NAME like "%"#{keyWord}"%"
+  	</select>
+  	
+  	<resultMap type="com.cy.entity.JobInfo" id="jobInfoDepartmentResultMap">
+		<id property="jobInfoId" column="JOBINFO_ID" />
+		<result property="jobInfoName" column="JOBINFO_NAME" />
+		<result property="departmentId" column="DEPARTMENT_ID" />
+		
+		<association property="department" javaType="com.cy.entity.Department">
+			<id property="departmentId" column="DEPARTMENT_ID" />
+			<result property="departmentName" column="DEPARTMENT_NAME" />
+		</association>
+		
+	</resultMap>
+  	
+</mapper>

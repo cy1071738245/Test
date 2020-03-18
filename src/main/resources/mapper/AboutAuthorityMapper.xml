@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- 将mapper接口和配置文件对应起来 -->
+<mapper namespace="com.cy.mapper.AboutAuthorityMapper">
+	
+	<!--  -->
+	<resultMap type="com.cy.entity.Employee" id="employeeAuthorityResultMap">
+		<id property="employeeId" column="EMPLOYEE_ID" />
+		<result property="employeeUsername" column="EMPLOYEE_USERNAME" />
+		<result property="employeePassword" column="EMPLOYEE_PASSWORD" />
+		<result property="employeeNickname" column="EMPLOYEE_NICKNAME" />
+		<result property="employeeRealname" column="EMPLOYEE_REALNAME" />
+		<result property="jobinfoId" column="JOBINFO_ID" />
+		<result property="departmentId" column="DEPARTMENT_ID" />
+		<result property="employeePhone" column="EMPLOYEE_PHONE" />
+		<result property="officeTel" column="OFFICE_TEL" />
+		<result property="workStatus" column="WORK_STATUS" />
+		
+		<association property="jobInfo" javaType="com.cy.entity.JobInfo">
+			<id property="jobInfoId" column="JOBINFO_ID"/>
+			<result property="jobInfoName" column="JOBINFO_NAME"/>
+			<result property="departmentId" column="DEPARTMENT_ID"/>
+			
+			<collection property="authorityJobList" ofType="com.cy.entity.AuthorityJob">
+				<id property="authorityJobId" column="AUTHORITY_JOB_ID"/>
+				<result property="jobInfoId" column="JOBINFO_ID"/>
+				<result property="authorityId" column="AUTHORITY_ID"/>
+				
+				<association property="authority" javaType="com.cy.entity.Authority">
+					<id property="authorityId" column="AUTHORITY_ID"/>
+					<result property="authorityName" column="AUTHORITY_NAME"/>
+					<result property="authorityType" column="AUTHORITY_TYPE"/>
+					<result property="urlCode" column="URL_CODE"/>
+					<result property="parentId" column="PARENT_ID"/>
+				</association>
+				
+			</collection>
+			
+		</association>
+		
+	</resultMap>
+	
+	<select id="loadAuthority" resultMap="employeeAuthorityResultMap">
+	  	select * from CRM_EMPLOYEE e, CRM_JOBINFO j, CRM_AUTHORITY_JOB o, CRM_AUTHORITY a
+		where e.JOBINFO_ID = j.JOBINFO_ID
+		and j.JOBINFO_ID = o.JOBINFO_ID
+		and o.AUTHORITY_ID = a.AUTHORITY_ID
+		and e.EMPLOYEE_USERNAME = #{employee.employeeUsername}
+		order by a.AUTHORITY_ID
+	</select>
+  
+  <!--  -->
+  	<resultMap type="com.cy.entity.Authority" id="authorityResultMap">
+		<id property="authorityId" column="AUTHORITY_ID"/>
+		<result property="authorityName" column="AUTHORITY_NAME"/>
+		<result property="authorityType" column="AUTHORITY_TYPE"/>
+		<result property="urlCode" column="URL_CODE"/>
+		<result property="parentId" column="PARENT_ID"/>
+	</resultMap>
+  
+  	<select id="queryFirstLevelAuthority" resultMap="authorityResultMap">
+  		select * from CRM_AUTHORITY 
+  		where AUTHORITY_ID = PARENT_ID
+  	</select>
+  	
+  	<select id="querySecondLevelAuthority" resultMap="authorityResultMap">
+  		select * from CRM_AUTHORITY 
+  		where AUTHORITY_TYPE = 2
+  		and PARENT_ID = #{authorityId}
+  	</select>
+  	
+  	<!--  -->
+  	<resultMap type="com.cy.entity.AuthorityJob" id="authorityJobResultMap">
+		<id property="authorityJobId" column="AUTHORITY_JOB_ID"/>
+		<result property="jobInfoId" column="JOBINFO_ID"/>
+		<result property="authorityId" column="AUTHORITY_ID"/>
+	</resultMap>
+  	
+  	<select id="queryRoleAuthorityId" resultMap="authorityJobResultMap">
+  		select * from CRM_AUTHORITY_JOB 
+  		where JOBINFO_ID = #{jobInfoId}
+  	</select>
+  	
+  	<delete id="deletePersonalAuthority">
+  		delete from CRM_AUTHORITY_JOB
+  		where JOBINFO_ID = #{jobInfoId}
+  	</delete>
+  	
+  	<insert id="insertPersonalAuthority">
+  		insert into CRM_AUTHORITY_JOB(JOBINFO_ID,AUTHORITY_ID) 
+  		values(#{authorityJob.jobInfoId},#{authorityJob.authorityId})
+  	</insert>
+  	
+</mapper>
