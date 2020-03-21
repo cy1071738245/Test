@@ -1,14 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>书画网</title>
-    <link href="css/css.css" rel="stylesheet" type="text/css" />
-    <script src="js/jquery.js"></script>
-    <script src="js/html.js"></script>
+    <link href="front/css/css.css" rel="stylesheet" type="text/css" />
+    <script src="front/js/jquery.js"></script>
+    <script src="front/js/html.js"></script>
 </head>
 <body>
 <c:set var="size" value="1" />
@@ -31,7 +30,7 @@
                 <ul class="tw_il">
                     <c:forEach items="${poetryResultMap.data}" var="poetryInfo">
                         <li>
-                            <a href="detail"><img src="img/cs12.jpg" alt=""/></a>
+                            <a href="detail"><img src="" alt=""/></a>
                             <h2><a href="detail">${poetryInfo.title}</a></h2>
                             <div class="txt">${poetryInfo.content}</div>
                             <p class="time">${poetryInfo.updateTime}</p>

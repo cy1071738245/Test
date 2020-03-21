@@ -6,8 +6,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.cy.entity.Employee;
-
 /**
  * 登录拦截器
  * @author cy
@@ -19,7 +17,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		
-		Employee employee = (Employee) request.getSession().getAttribute("employee");
+		/*Employee employee = (Employee) request.getSession().getAttribute("employee");
 		
 		if(employee == null) {
 			//未登录 返回登陆页面
@@ -29,8 +27,8 @@ public class LoginInterceptor implements HandlerInterceptor {
 		}else {
 			//已登录 放行请求
 			return true;
-		}
-		
+		}*/
+		return true;
 	}
 
 	@Override

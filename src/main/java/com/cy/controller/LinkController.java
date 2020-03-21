@@ -20,55 +20,25 @@ public class LinkController {
 	public String linkIndex() {
 		return "index";
 	}
-	
-	@RequestMapping("depart")
-	public String linkDepart() {
-		return "forward:loadDepart";
-	}
-	
-	@RequestMapping("role")
-	public String linkRole() {
-		return "forward:loadRole";
+
+	@RequestMapping("welcome")
+	public String linkWelcome() {
+		return "welcome";
 	}
 
-	@RequestMapping("user")
-	public String linkUser() {
-		return "forward:loadUser";
+	@RequestMapping("member-list")
+	public String linkMemberList() {
+		return "member-list";
 	}
-	
-	@RequestMapping("schedule")
-	public String linkSchedule() {
-		return "schedule";
+
+	@RequestMapping("member-add")
+	public String linkMemberAdd() {
+		return "member-add";
 	}
-	
-	@RequestMapping("updatePwd")
-	public String linkUpdatePwd() {
-		return "updatePwd";
-	}
-	
-	@RequestMapping("addDepart")
-	public String linkAddDepart() {
-		return "addDepart";
-	}
-	
-	@RequestMapping("editRole")
-	public String linkEditRole() {
-		return "forward:dropDownMenuDepartEdit";
-	}
-	
-	@RequestMapping("alterRole")
-	public String linkAlterRole() {
-		return "forward:dropDownMenuDepartAlter";
-	}
-	
-	@RequestMapping("shareRole")
-	public String linkShareRole() {
-		return "forward:distributionRightsDisplay";
-	}
-	
-	@RequestMapping("addUser")
-	public String linkAddUser() {
-		return "forward:dropDownMenuRole";
+
+	@RequestMapping("member-edit")
+	public String linkMemberEdit() {
+		return "member-edit";
 	}
 
 	@RequestMapping("poetry-list")

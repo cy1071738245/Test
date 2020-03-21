@@ -22,7 +22,7 @@ public class MvcConfig implements WebMvcConfigurer {
 		loginRegistry.excludePathPatterns("/login", "/loginVerify", "/logout",
 				"/detail", "/poetryList*");
 		//拦截路径
-		loginRegistry.addPathPatterns("/*");
+		//loginRegistry.addPathPatterns("/*");
 		
 	}
 	

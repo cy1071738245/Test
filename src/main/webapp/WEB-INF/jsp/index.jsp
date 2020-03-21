@@ -1,139 +1,132 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8" />
-<title>后台</title>
-<link rel="stylesheet" href="css/amazeui.min.css">
-<link rel="stylesheet" href="css/admin.css">
-<link rel="stylesheet" href="css/app.css">
-
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link rel="stylesheet" href="assets/materialize/css/materialize.min.css" media="screen,projection" />
-<link href="assets/css/bootstrap.css" rel="stylesheet" />
-<link href="assets/css/custom-styles.css" rel="stylesheet" />
-
-<style>
-.admin-main {
-	padding-top: 0px;
-}
-.admin-parent {
-	height: 47.4px;
-	font-size: 16px;
-	padding-top: 1px;
-	padding-bottom: 4px;
-}
-</style>
-</head>
-
-<body>
-
-
-	<header class="am-topbar am-topbar-inverse admin-header">
-		<div class="am-topbar-brand">
-			<strong>后台</strong> <small>管理系统</small>
-		</div>
-		<button
-			class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
-			data-am-collapse="{target: '#topbar-collapse'}">
-			<span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span>
-		</button>
-		<div class="am-collapse am-topbar-collapse" id="topbar-collapse">
-
-			<ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
-				<li>
-					<a class="dropdown-button waves-effect waves-dark" href="#" data-activates="dropdown1"><i class="fa fa-user fa-fw"></i> <b>${employee.employeeNickname}</b> <i class="material-icons right">arrow_drop_down</i></a>
-				</li>
-			</ul>
-			<ul id="dropdown1" class="dropdown-content">
-				<li>
-					<a href="logout"><i class="fa fa-sign-out fa-fw"></i> 注销</a>
-				</li>
-			</ul>
-		</div>
-	</header>
-
-	<div class="am-cf admin-main">
-		<!-- sidebar start -->
-		<div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
-			<div class="am-offcanvas-bar admin-offcanvas-bar">
-				<ul class="am-list admin-sidebar-list">
-					<li class="admin-parent"><a class="am-cf" style="text-decoration: none;" href="admin-index.html"
-						target="right"><span class="am-icon-file"></span> 首页<span
-							class="am-icon-angle-right am-fr am-margin-right"></span> </a></li>
-							
-					<c:forEach items="${employee.jobInfo.authorityJobList}" var="authorityJob">
-						<li class="admin-parent"><a class="am-cf" style="text-decoration: none;" href="${authorityJob.authority.urlCode}"
-							target="right"><span class="am-icon-file"></span> ${authorityJob.authority.authorityName}<span
-								class="am-icon-angle-right am-fr am-margin-right"></span> </a></li>
-					</c:forEach>
-					
-				</ul>
-				<div class="am-panel am-panel-default admin-sidebar-panel">
-					<div class="am-panel-bd">
-						<p>
-							<span class="am-icon-bookmark"></span> 公告
-						</p>
-						<p>欢迎使用管理系统</p>
-					</div>
-				</div>
-
-			</div>
-		</div>
-		<!-- sidebar end -->
-
-		<!-- content start -->
-		<div class="admin-content">
-			<div class="admin-content-body">
-				<iframe src="" width="100%" height="1100" name="right"
-					style="border: none;">
-				</iframe>
-			</div>
-		</div>
-
-	</div>
-	<!-- content end -->
-
-	</div>
-
-	<a href="#"
-		class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
-		data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
-
-	<footer>
-		<hr>
-		<p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under
-			MIT license.</p>
-	</footer>
-
-</body>
-
-<!--[if lt IE 9]>
-		<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
-		<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
-		<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
-		<![endif]-->
-
-<!--[if (gte IE 9)|!(IE)]><!-->
-<script src="js/jquery-1.11.3.min.js"></script>
-<!--<![endif]-->
-<script src="js/amazeui.min.js"></script>
-<script src="js/app.js"></script>
-<script type="text/javascript" src="myplugs/js/plugs.js"></script>
-<script type="text/javascript">
-	//添加编辑弹出层
-	function updatePwd(title, id) {
-		$.jq_Panel({
-			title : title,
-			iframeWidth : 500,
-			iframeHeight : 300,
-			url : "updatePwd"
-		});
-	}
-</script>
-
-<script src="assets/materialize/js/materialize.min.js"></script>
+<html class="x-admin-sm">
+    <head>
+        <meta charset="UTF-8">
+        <title>诗词网后台管理系统</title>
+        <meta name="renderer" content="webkit|ie-comp|ie-stand">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <link rel="stylesheet" href="./css/font.css">
+        <link rel="stylesheet" href="./css/xadmin.css">
+        <!-- <link rel="stylesheet" href="./css/theme5.css"> -->
+        <script src="./lib/layui/layui.js" charset="utf-8"></script>
+        <script type="text/javascript" src="./js/xadmin.js"></script>
+        <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+        <!--[if lt IE 9]>
+          <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+          <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <script>
+            // 是否开启刷新记忆tab功能
+            // var is_remember = false;
+        </script>
+    </head>
+    <body class="index">
+        <!-- 顶部开始 -->
+        <div class="container">
+            <div class="logo">
+                <a href="index">诗词网后台管理系统</a></div>
+            <div class="left_open">
+                <a><i title="展开左侧栏" class="iconfont">&#xe699;</i></a>
+            </div>
+            <ul class="layui-nav left fast-add" lay-filter="">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">+新增</a>
+                    <dl class="layui-nav-child">
+                        <!-- 二级菜单 -->
+                        <dd>
+                            <a onclick="xadmin.open('最大化','http://www.baidu.com','','',true)">
+                                <i class="iconfont">&#xe6a2;</i>弹出最大化</a></dd>
+                        <dd>
+                            <a onclick="xadmin.open('弹出自动宽高','http://www.baidu.com')">
+                                <i class="iconfont">&#xe6a8;</i>弹出自动宽高</a></dd>
+                        <dd>
+                            <a onclick="xadmin.open('弹出指定宽高','http://www.baidu.com',500,300)">
+                                <i class="iconfont">&#xe6a8;</i>弹出指定宽高</a></dd>
+                        <dd>
+                            <a onclick="xadmin.add_tab('在tab打开','member-list.html')">
+                                <i class="iconfont">&#xe6b8;</i>在tab打开</a></dd>
+                        <dd>
+                            <a onclick="xadmin.add_tab('在tab打开刷新','member-del.html',true)">
+                                <i class="iconfont">&#xe6b8;</i>在tab打开刷新</a></dd>
+                    </dl>
+                </li>
+            </ul>
+            <ul class="layui-nav right" lay-filter="">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">admin</a>
+                    <dl class="layui-nav-child">
+                        <!-- 二级菜单 -->
+                        <dd>
+                            <a onclick="xadmin.open('个人信息','http://www.baidu.com')">个人信息</a></dd>
+                        <dd>
+                            <a onclick="xadmin.open('切换帐号','http://www.baidu.com')">切换帐号</a></dd>
+                        <dd>
+                            <a href="./login.html">退出</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item to-index">
+                    <a href="/">前台首页</a></li>
+            </ul>
+        </div>
+        <!-- 顶部结束 -->
+        <!-- 中部开始 -->
+        <!-- 左侧菜单开始 -->
+        <div class="left-nav">
+            <div id="side-nav">
+                <ul id="nav">
+                    <li>
+                        <a href="javascript:;">
+                            <i class="iconfont left-nav-li" lay-tips="诗人管理">&#xe6b8;</i>
+                            <cite>诗人管理</cite>
+                            <i class="iconfont nav_right">&#xe697;</i></a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a onclick="xadmin.add_tab('诗人管理','member-list')">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>诗人管理</cite></a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- <div class="x-slide_left"></div> -->
+        <!-- 左侧菜单结束 -->
+        <!-- 右侧主体开始 -->
+        <div class="page-content">
+            <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
+                <ul class="layui-tab-title">
+                    <li class="home">
+                        <i class="layui-icon">&#xe68e;</i>我的桌面</li></ul>
+                <div class="layui-unselect layui-form-select layui-form-selected" id="tab_right">
+                    <dl>
+                        <dd data-type="this">关闭当前</dd>
+                        <dd data-type="other">关闭其它</dd>
+                        <dd data-type="all">关闭全部</dd></dl>
+                </div>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show">
+                        <iframe src='welcome' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+                    </div>
+                </div>
+                <div id="tab_show"></div>
+            </div>
+        </div>
+        <div class="page-content-bg"></div>
+        <style id="theme_style"></style>
+        <!-- 右侧主体结束 -->
+        <!-- 中部结束 -->
+        <script>//百度统计可去掉
+            var _hmt = _hmt || []; (function() {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    </body>
 
 </html>
