@@ -2,6 +2,7 @@ package com.cy.controller;
 
 import javax.annotation.Resource;
 
+import com.cy.constant.Number;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,9 +25,9 @@ public class PoetryController {
 	private PoetryService poetryService;
 
 	@GetMapping("poetryList")
-	public ModelAndView poetryList(@RequestParam("page") int page, @RequestParam("size") int size) {
+	public ModelAndView poetryList(@RequestParam("page") int page) {
 		ModelAndView mav = new ModelAndView();
-		Map<String, Object> result = poetryService.getPoetryList(page, size);
+		Map<String, Object> result = poetryService.getPoetryList(page, Number.size);
 		mav.addObject("poetryResultMap", result);
 		mav.setViewName("poetry-list");
 		return mav;

@@ -13,4 +13,7 @@ public interface PoetryMapper {
 
     int getPoetryListCount();
 
+    int addPoetry(@Param("poetryName") String poetryName, @Param("authorId") int authorId,
+                  @Param("content") String content, @Param("imageUrl") String imageUrl);
+
 }

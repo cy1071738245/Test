@@ -78,15 +78,16 @@
             <div id="side-nav">
                 <ul id="nav">
                     <li>
-                        <a href="javascript:;">
-                            <i class="iconfont left-nav-li" lay-tips="诗人管理">&#xe6b8;</i>
-                            <cite>诗人管理</cite>
+                        <a href="javascript:">
+                            <i class="iconfont left-nav-li" lay-tips="诗词管理">&#xe6b8;</i>
+                            <cite>诗词管理</cite>
                             <i class="iconfont nav_right">&#xe697;</i></a>
                         <ul class="sub-menu">
                             <li>
-                                <a onclick="xadmin.add_tab('诗人管理','member-list')">
+                                <a onclick="xadmin.add_tab('诗词管理','admin-poetry-list')">
                                     <i class="iconfont">&#xe6a7;</i>
-                                    <cite>诗人管理</cite></a>
+                                    <cite>诗词管理</cite>
+                                </a>
                             </li>
                         </ul>
                     </li>

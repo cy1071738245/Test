@@ -10,7 +10,6 @@
     <script src="front/js/html.js"></script>
 </head>
 <body>
-<c:set var="size" value="1" />
 <!--头部-->
 <div id="header">
     <div class="top">
@@ -40,8 +39,8 @@
                 <div class="clear"></div>
                 <div class="fy_box">
                     <c:if test="${poetryResultMap.prePage != null}">
-                        <a href="poetryList?page=${poetryResultMap.prePage}&size=${size}"><<</a>
-                        <a href="poetryList?page=${poetryResultMap.prePage}&size=${size}" class="hover">
+                        <a href="poetryList?page=${poetryResultMap.prePage}"><<</a>
+                        <a href="poetryList?page=${poetryResultMap.prePage}" class="hover">
                             ${poetryResultMap.prePage}
                         </a>
                     </c:if>
@@ -49,10 +48,10 @@
                         ${poetryResultMap.prePage + 1}
                     </a>
                     <c:if test="${poetryResultMap.nextPage != null}">
-                        <a href="poetryList?page=${poetryResultMap.nextPage}&size=${size}" class="hover">
-                                ${poetryResultMap.nextPage}
+                        <a href="poetryList?page=${poetryResultMap.nextPage}&size=" class="hover">
+                            ${poetryResultMap.nextPage}
                         </a>
-                        <a href="poetryList?page=${poetryResultMap.nextPage}&size=${size}">>></a>
+                        <a href="poetryList?page=${poetryResultMap.nextPage}">>></a>
                     </c:if>
                 </div>
             </div>

@@ -26,14 +26,14 @@ public class LinkController {
 		return "welcome";
 	}
 
-	@RequestMapping("member-list")
+	@RequestMapping("admin-poetry-list")
 	public String linkMemberList() {
-		return "member-list";
+		return "forward:adminPoetryList?page=1";
 	}
 
-	@RequestMapping("member-add")
+	@RequestMapping("admin-poetry-add")
 	public String linkMemberAdd() {
-		return "member-add";
+		return "admin-poetry-add";
 	}
 
 	@RequestMapping("member-edit")
@@ -43,7 +43,7 @@ public class LinkController {
 
 	@RequestMapping("poetry-list")
 	public String linkPoetryList() {
-		return "poetry-list";
+		return "forward:poetryList?page=1";
 	}
 
 	@RequestMapping("detail")

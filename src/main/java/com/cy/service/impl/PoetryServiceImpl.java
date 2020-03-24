@@ -37,4 +37,9 @@ public class PoetryServiceImpl implements PoetryService {
 		return result;
 	}
 
+	@Override
+	public void addPoetry(String poetryName, int authorId, String content, String imageUrl) {
+		poetryMapper.addPoetry(poetryName, authorId, content, imageUrl);
+	}
+
 }
