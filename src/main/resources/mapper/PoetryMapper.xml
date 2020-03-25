@@ -10,17 +10,33 @@
         b.author_id authorId, b.author_name authorName
         from poetry a, author b
         where a.author_id = b.author_id
+        <if test="keyword != null">
+            and a.title like concat('%', #{keyword}, '%')
+        </if>
         limit ${size * (page - 1)}, #{size}
     </select>
 
     <select id="getPoetryListCount" resultType="java.lang.Integer">
         select count(*) from poetry a, author b
         where a.author_id = b.author_id
+        <if test="keyword != null">
+            and a.title like concat('%', #{keyword}, '%')
+        </if>
     </select>
 
     <insert id="addPoetry">
         insert into poetry (title, author_id, content, image_url, update_time)
         values (#{poetryName}, #{authorId}, #{content}, #{imageUrl}, CURTIME())
     </insert>
+
+    <update id="editPoetry">
+        update poetry
+        set title = #{poetryName}, author_id = #{authorId}, content = #{content}, image_url = #{imageUrl}, update_time = CURTIME()
+        where poetry_id = #{poetryId}
+    </update>
+
+    <delete id="deletePoetry">
+        delete from poetry where poetry_id = #{poetryId}
+    </delete>
 
 </mapper>

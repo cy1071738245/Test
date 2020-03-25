@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @author chenyu
  * @ClassName: BaseController
  * @Description: 控制层超类
  * @date 2020/1/15 14:36

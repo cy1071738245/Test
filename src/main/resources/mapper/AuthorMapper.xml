@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- 将mapper接口和配置文件对应起来 -->
+<mapper namespace="com.cy.mapper.AuthorMapper">
+
+    <select id="getAuthorList" resultType="java.util.Map">
+        select author_id authorId, author_name authorName, sex, dynasty, description, update_time updateTime,
+        from author
+        <where>
+            <if test="keyword != null">
+                author_name like concat('%', #{keyword}, '%')
+            </if>
+        </where>
+        limit ${size * (page - 1)}, #{size}
+    </select>
+
+    <select id="getAuthorListCount" resultType="java.lang.Integer">
+        select count(*) from author
+        <where>
+            <if test="keyword != null">
+                author_name like concat('%', #{keyword}, '%')
+            </if>
+        </where>
+    </select>
+
+    <insert id="addAuthor">
+        insert into author (author_name, sex, dynasty, description, update_time)
+        values (#{authorName}, #{sex}, #{dynasty}, #{description}, CURTIME())
+    </insert>
+
+    <update id="editAuthor">
+        update author
+        set author_name = #{authorName}, sex = #{sex}, dynasty = #{dynasty}, description = #{description}, update_time = CURTIME()
+        where author_id = #{authorId}
+    </update>
+
+    <delete id="deleteAuthor">
+        delete from author where author_id = #{authorId}
+    </delete>
+
+</mapper>

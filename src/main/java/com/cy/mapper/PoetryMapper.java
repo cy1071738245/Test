@@ -9,11 +9,16 @@ import java.util.Map;
 @Repository
 public interface PoetryMapper {
 
-    List<Map<String, Object>> getPoetryList(@Param("page") int page, @Param("size") int size);
+    List<Map<String, Object>> getPoetryList(@Param("page") int page, @Param("size") int size, @Param("keyword") String keyword);
 
-    int getPoetryListCount();
+    int getPoetryListCount(@Param("keyword") String keyword);
 
     int addPoetry(@Param("poetryName") String poetryName, @Param("authorId") int authorId,
                   @Param("content") String content, @Param("imageUrl") String imageUrl);
+
+    int editPoetry(@Param("poetryId") int poetryId, @Param("poetryName") String poetryName, @Param("authorId") int authorId,
+                  @Param("content") String content, @Param("imageUrl") String imageUrl);
+
+    int deletePoetry(@Param("poetryId") int poetryId);
 
 }

@@ -32,11 +32,11 @@
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label for="author" class="layui-form-label">
+                        <label for="authorId" class="layui-form-label">
                             <span class="x-red">*</span>作者
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" id="authorId" name="authorId" required="" lay-verify="author" autocomplete="off" class="layui-input">
+                            <input type="text" id="authorId" name="authorId" required="" lay-verify="authorId" autocomplete="off" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -49,7 +49,7 @@
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label"></label>
-                        <button class="layui-btn" lay-filter="add" lay-submit="">增加</button>
+                        <button class="layui-btn" lay-filter="add" lay-submit="">添加</button>
                     </div>
                 </form>
             </div>
@@ -69,7 +69,7 @@
                             return '诗词名必填项';
                         }
                     },
-                    author: function (value) {
+                    authorId: function (value) {
                         if (value.length < 1) {
                             return '作者必填项';
                         }
@@ -84,7 +84,7 @@
                 form.on('submit(add)',
                     function(data) {
                         //发异步，把数据提交给
-                        var poetryForm = $('#poetryForm').serialize()
+                        const poetryForm = $('#poetryForm').serialize();
                         $.ajax({
                             type:"post",
                             url:"addPoetry",
@@ -92,7 +92,7 @@
                             dataType:"text",
                             success: function (result) {
                                 if (result === "success") {
-                                    layer.alert("增加成功", {
+                                    layer.alert("添加成功", {
                                         icon: 6
                                     }, function() {
                                         //关闭当前frame
@@ -100,6 +100,8 @@
                                         //可以对父窗口进行刷新
                                         xadmin.father_reload();
                                     });
+                                } else {
+                                    layer.alert("添加失败");
                                 }
                             }
                         });

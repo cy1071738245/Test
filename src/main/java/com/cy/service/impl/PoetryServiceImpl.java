@@ -22,10 +22,10 @@ public class PoetryServiceImpl implements PoetryService {
 	private PoetryMapper poetryMapper;
 
 	@Override
-	public Map<String, Object> getPoetryList(int page, int size) {
+	public Map<String, Object> getPoetryList(int page, int size, String keyword) {
 		Map<String, Object> result = new HashMap<>();
-		List<Map<String, Object>> poetryList = poetryMapper.getPoetryList(page, size);
-		int poetryListCount = poetryMapper.getPoetryListCount();
+		List<Map<String, Object>> poetryList = poetryMapper.getPoetryList(page, size, keyword);
+		int poetryListCount = poetryMapper.getPoetryListCount(keyword);
 		Integer prePage = page < 2 ? null : page - 1;
 		Integer nextPage = page + 1 > ((poetryListCount % size) == 0
 					? poetryListCount / size
@@ -40,6 +40,16 @@ public class PoetryServiceImpl implements PoetryService {
 	@Override
 	public void addPoetry(String poetryName, int authorId, String content, String imageUrl) {
 		poetryMapper.addPoetry(poetryName, authorId, content, imageUrl);
+	}
+
+	@Override
+	public void editPoetry(int poetryId, String poetryName, int authorId, String content, String imageUrl) {
+		poetryMapper.editPoetry(poetryId, poetryName, authorId, content, imageUrl);
+	}
+
+	@Override
+	public void deletePoetry(int poetryId) {
+		poetryMapper.deletePoetry(poetryId);
 	}
 
 }

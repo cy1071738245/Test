@@ -25,9 +25,9 @@ public class PoetryController {
 	private PoetryService poetryService;
 
 	@GetMapping("poetryList")
-	public ModelAndView poetryList(@RequestParam("page") int page) {
+	public ModelAndView poetryList(@RequestParam("page") int page, @RequestParam(value = "keyword", required = false) String keyword) {
 		ModelAndView mav = new ModelAndView();
-		Map<String, Object> result = poetryService.getPoetryList(page, Number.size);
+		Map<String, Object> result = poetryService.getPoetryList(page, Number.size, keyword);
 		mav.addObject("poetryResultMap", result);
 		mav.setViewName("poetry-list");
 		return mav;
