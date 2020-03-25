@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.cy</groupId>
-	<artifactId>poetry</artifactId>
+	<artifactId>Poetry</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>poetry</name>
+	<name>Poetry</name>
 
 	<properties>
 		<java.version>1.8</java.version>
