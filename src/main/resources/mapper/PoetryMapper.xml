@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- 将mapper接口和配置文件对应起来 -->
+<mapper namespace="com.cy.mapper.PoetryMapper">
+
+    <select id="getPoetryList" resultType="java.util.Map">
+        select a.poetry_id poetryId, a.title, a.content, a.image_url imageUrl, a.update_time updateTime,
+        b.author_id authorId, b.author_name authorName
+        from poetry a, author b
+        where a.author_id = b.author_id
+        limit ${size * (page - 1)}, #{size}
+    </select>
+
+    <select id="getPoetryListCount" resultType="java.lang.Integer">
+        select count(*) from poetry a, author b
+        where a.author_id = b.author_id
+    </select>
+
+    <insert id="addPoetry">
+        insert into poetry (title, author_id, content, image_url, update_time)
+        values (#{poetryName}, #{authorId}, #{content}, #{imageUrl}, CURTIME())
+    </insert>
+
+</mapper>
