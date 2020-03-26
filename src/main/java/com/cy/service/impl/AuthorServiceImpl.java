@@ -3,6 +3,9 @@ package com.cy.service.impl;
 import com.cy.mapper.AuthorMapper;
 import com.cy.service.AuthorService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -15,6 +18,7 @@ import java.util.Map;
  * @date 2020/3/25 17:05
  */
 @Service
+@Transactional(propagation= Propagation.REQUIRED,isolation= Isolation.DEFAULT)
 public class AuthorServiceImpl implements AuthorService {
 
 	@Resource

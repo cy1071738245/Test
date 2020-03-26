@@ -15,7 +15,7 @@ import java.util.Map;
  * @Description: 诗人管理
  * @date 2020/3/25 16:55
  */
-public class AuthorController extends BaseController {
+public class AdminAuthorController extends BaseController {
 
 	@Resource
 	private AuthorService authorService;

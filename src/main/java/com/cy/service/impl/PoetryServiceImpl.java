@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Service("customerService")
+@Service
 @Transactional(propagation=Propagation.REQUIRED,isolation=Isolation.DEFAULT)
 public class PoetryServiceImpl implements PoetryService {
 

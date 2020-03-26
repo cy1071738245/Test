@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- 将mapper接口和配置文件对应起来 -->
+<mapper namespace="com.cy.mapper.ArticleMapper">
+
+    <select id="getArticleList" resultType="java.util.Map">
+        select a.article_id articleId, a.title, a.content, a.image_url imageUrl, poetry_id poetryId, a.update_time updateTime,
+        b.user_name userName
+        from article a left join `user` b
+        on a.user_id = b.user_id
+        <if test="keyword != null">
+            where a.title like concat('%', #{keyword}, '%')
+        </if>
+        limit ${size * (page - 1)}, #{size}
+    </select>
+
+    <select id="getArticleListCount" resultType="java.lang.Integer">
+        select count(*) from article
+        <if test="keyword != null">
+            where title like concat('%', #{keyword}, '%')
+        </if>
+    </select>
+
+    <insert id="addArticle">
+        insert into article (title, user_id, content, image_url, poetry_id, update_time)
+        values (#{title}, #{userId}, #{content}, #{imageUrl}, #{poetryId}, CURTIME())
+    </insert>
+
+    <update id="editArticle">
+        update article
+        set title = #{title}, user_id = #{userId}, content = #{content}, image_url = #{imageUrl}, poetry_id = #{poetryId}, update_time = CURTIME()
+        where article_id = #{articleId}
+    </update>
+
+    <delete id="deleteArticle">
+        delete from article where article_id = #{articleId}
+    </delete>
+
+</mapper>

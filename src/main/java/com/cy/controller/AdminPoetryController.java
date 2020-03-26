@@ -2,6 +2,7 @@ package com.cy.controller;
 
 import com.cy.constant.Number;
 import com.cy.service.PoetryService;
+import com.cy.util.FileUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,7 +38,7 @@ public class AdminPoetryController extends BaseController {
                                   @RequestParam("content") String content,
                                   @RequestParam(value = "image", required = false) MultipartFile image) {
         ModelAndView mav = new ModelAndView();
-        String imageUrl = upload(image);
+        String imageUrl = FileUtils.upload(image, request);
         poetryService.addPoetry(poetryName, authorId, content, imageUrl);
         try {
             PrintWriter out = response.getWriter();
@@ -58,7 +59,7 @@ public class AdminPoetryController extends BaseController {
                                    @RequestParam("content") String content,
                                    @RequestParam(value = "image", required = false) MultipartFile image) {
         ModelAndView mav = new ModelAndView();
-        String imageUrl = upload(image);
+        String imageUrl = FileUtils.upload(image, request);
         poetryService.editPoetry(poetryId, poetryName, authorId, content, imageUrl);
         try {
             PrintWriter out = response.getWriter();
@@ -86,22 +87,6 @@ public class AdminPoetryController extends BaseController {
         }
         mav.setViewName("admin-poetry-list");
         return mav;
-    }
-
-    /**
-     * 文件上传
-     *
-     * @param file 文件
-     * @return String
-     */
-    private String upload(MultipartFile file) {
-        String fileUrl = null;
-        if (nonNull(file)) {
-            String str = requireNonNull(file.getOriginalFilename());
-            String name = UUID.randomUUID() + str.substring(str.lastIndexOf("."));
-            fileUrl = request.getServletContext().getRealPath("/upload") + "/" + name;
-        }
-        return fileUrl;
     }
 
 }
