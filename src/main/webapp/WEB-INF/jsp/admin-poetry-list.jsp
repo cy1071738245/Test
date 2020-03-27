@@ -185,7 +185,8 @@
             $.ajax({
                 type:"delete",
                 url:"batchDeletePoetry",
-                data:ids,
+                data:{poetryIds:ids},
+                traditional:true,
                 dataType:"text",
                 success: function (result) {
                     if (result === "success") {
