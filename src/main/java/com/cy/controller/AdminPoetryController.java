@@ -2,7 +2,6 @@ package com.cy.controller;
 
 import com.cy.constant.Number;
 import com.cy.service.PoetryService;
-import com.cy.util.FileUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,11 +10,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
-import java.util.UUID;
-
-import static java.util.Objects.nonNull;
-import static java.util.Objects.requireNonNull;
 
 @Controller
 public class AdminPoetryController extends BaseController {
@@ -32,13 +29,21 @@ public class AdminPoetryController extends BaseController {
         return mav;
     }
 
+    @GetMapping("loadAuthorInfo")
+    public ModelAndView loadAuthorInfo() {
+        ModelAndView mav = new ModelAndView();
+        Map<String, List<Map<String, Object>>> result = poetryService.loadAuthorInfo();
+        mav.addObject("authorInfoMap", result);
+        mav.setViewName("admin-poetry-add");
+        return mav;
+    }
+
     @PostMapping("addPoetry")
     public ModelAndView addPoetry(@RequestParam("poetryName") String poetryName,
                                   @RequestParam("authorId") int authorId,
                                   @RequestParam("content") String content,
-                                  @RequestParam(value = "image", required = false) MultipartFile image) {
+                                  @RequestParam(value = "imageUrl", required = false) String imageUrl) {
         ModelAndView mav = new ModelAndView();
-        String imageUrl = FileUtils.upload(image, request);
         poetryService.addPoetry(poetryName, authorId, content, imageUrl);
         try {
             PrintWriter out = response.getWriter();
@@ -52,14 +57,14 @@ public class AdminPoetryController extends BaseController {
         return mav;
     }
 
-    @PutMapping("editPoetry")
+    @PostMapping("editPoetry")
     public ModelAndView editPoetry(@RequestParam("poetryId") int poetryId,
                                    @RequestParam("poetryName") String poetryName,
                                    @RequestParam("authorId") int authorId,
                                    @RequestParam("content") String content,
                                    @RequestParam(value = "image", required = false) MultipartFile image) {
         ModelAndView mav = new ModelAndView();
-        String imageUrl = FileUtils.upload(image, request);
+        String imageUrl = null;
         poetryService.editPoetry(poetryId, poetryName, authorId, content, imageUrl);
         try {
             PrintWriter out = response.getWriter();
@@ -77,6 +82,22 @@ public class AdminPoetryController extends BaseController {
     public ModelAndView deletePoetry(@RequestParam("poetryId") int poetryId) {
         ModelAndView mav = new ModelAndView();
         poetryService.deletePoetry(poetryId);
+        try {
+            PrintWriter out = response.getWriter();
+            out.print("success");
+            //关闭流
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mav.setViewName("admin-poetry-list");
+        return mav;
+    }
+
+    @DeleteMapping("batchDeletePoetry")
+    public ModelAndView batchDeletePoetry(@RequestParam("poetryIds") List<Integer> poetryIds) {
+        ModelAndView mav = new ModelAndView();
+        System.err.println(poetryIds);
         try {
             PrintWriter out = response.getWriter();
             out.print("success");

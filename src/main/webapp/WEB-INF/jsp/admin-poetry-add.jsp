@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html class="x-admin-sm">
     
@@ -36,7 +37,16 @@
                             <span class="x-red">*</span>作者
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" id="authorId" name="authorId" required="" lay-verify="authorId" autocomplete="off" class="layui-input">
+                            <select id="authorId" name="authorId" lay-verify="authorId">
+                                <option value="0">请选择</option>
+                                <c:forEach items="${authorInfoMap}" var="dynastyMap">
+                                    <optgroup label="${dynastyMap.key}">
+                                        <c:forEach items="${dynastyMap.value}" var="authorInfo">
+                                            <option value="${authorInfo.authorId}">${authorInfo.authorName}</option>
+                                        </c:forEach>
+                                    </optgroup>
+                                </c:forEach>
+                            </select>
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -48,6 +58,16 @@
                         </div>
                     </div>
                     <div class="layui-form-item">
+                        <label for="uploadImg" class="layui-form-label">
+                            <span class="x-red"></span>上传图片
+                        </label>
+                        <div class="layui-upload">
+                            <button type="button" class="layui-btn" id="uploadImg">上传</button>
+                            <div class="layui-upload-list" id="show"></div>
+                        </div>
+                        <input type="hidden" id="imageUrl" name="imageUrl" required="" class="layui-input">
+                    </div>
+                    <div class="layui-form-item">
                         <label class="layui-form-label"></label>
                         <button class="layui-btn" lay-filter="add" lay-submit="">添加</button>
                     </div>
@@ -57,7 +77,7 @@
         </div>
     </body>
     <script>
-        layui.use(['form', 'layer','jquery'],
+        layui.use(['form', 'layer','jquery','upload'],
             function() {
                 $ = layui.jquery;
                 var form = layui.form,
@@ -69,15 +89,32 @@
                             return '诗词名必填项';
                         }
                     },
-                    authorId: function (value) {
-                        if (value.length < 1) {
-                            return '作者必填项';
+                    authorId: function(value) {
+                        if (value < 1) {
+                            return '作者必选项';
                         }
                     },
                     content: function (value) {
                         if (value.length < 1) {
                             return '内容必填项';
                         }
+                    }
+                });
+                layui.upload.render({
+                    elem: '#uploadImg'
+                    ,url: 'uploadImage' //改成您自己的上传接口
+                    ,multiple: false
+                    ,before: function(obj){
+                        //预读本地文件示例，不支持ie8
+                        obj.preview(function(index, file, result){
+                            $('#show').append('<label for="uploadImg" class="layui-form-label"><span class="x-red"></span></label>')
+                                    .append('<img style="width:70px;height:70px;" src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img">')
+                        });
+                    }
+                    ,done: function(res){
+                        //上传完毕
+                        $('#imageUrl').val(res.src);
+                        layer.alert("上传成功")
                     }
                 });
                 //监听提交

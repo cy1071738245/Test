@@ -39,7 +39,7 @@ public class AdminArticleController extends BaseController {
 	                               @RequestParam("poetryId") int poetryId) {
 		User user = (User) request.getSession().getAttribute("user");
 		ModelAndView mav = new ModelAndView();
-		String imageUrl = FileUtils.upload(image, request);
+		String imageUrl = null;
 		articleService.addArticle(title, user.getUserId(), content, imageUrl, poetryId);
 		try {
 			PrintWriter out = response.getWriter();
@@ -61,7 +61,7 @@ public class AdminArticleController extends BaseController {
 	                                @RequestParam("poetryId") int poetryId) {
 		ModelAndView mav = new ModelAndView();
 		User user = (User) request.getSession().getAttribute("user");
-		String imageUrl = FileUtils.upload(image, request);
+		String imageUrl = null;
 		articleService.editArticle(articleId, title, user.getUserId(), content, imageUrl, poetryId);
 		try {
 			PrintWriter out = response.getWriter();

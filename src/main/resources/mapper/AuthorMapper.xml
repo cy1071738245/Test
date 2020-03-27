@@ -40,4 +40,8 @@
         delete from author where author_id = #{authorId}
     </delete>
 
+    <select id="getAuthorLoading" resultType="java.util.Map">
+        select author_id authorId, author_name authorName, dynasty from author
+    </select>
+
 </mapper>

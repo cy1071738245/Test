@@ -33,7 +33,7 @@ public class LinkController {
 
 	@RequestMapping("admin-poetry-add")
 	public String linkMemberAdd() {
-		return "admin-poetry-add";
+		return "forward:loadAuthorInfo";
 	}
 
 	@RequestMapping("member-edit")

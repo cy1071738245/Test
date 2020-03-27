@@ -21,4 +21,6 @@ public interface AuthorMapper {
 
     int deleteAuthor(@Param("authorId") int authorId);
 
+    List<Map<String, Object>> getAuthorLoading();
+
 }

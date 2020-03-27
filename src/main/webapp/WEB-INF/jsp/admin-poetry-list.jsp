@@ -76,7 +76,7 @@
                                             <a title="编辑"  onclick="xadmin.open('编辑','member-edit',600,400)" href="javascript:">
                                                 <i class="layui-icon">&#xe642;</i>
                                             </a>
-                                            <a title="删除" onclick="member_del(this,${poetryInfo.poetryId})" href="javascript:">
+                                            <a title="删除" onclick="poetryDel(this,${poetryInfo.poetryId})" href="javascript:">
                                                 <i class="layui-icon">&#xe640;</i>
                                             </a>
                                         </td>
@@ -151,12 +151,24 @@
           });
       }
 
-      /*用户-删除*/
-      function member_del(obj,id){
+      /*删除*/
+      function poetryDel(obj,poetryId){
           layer.confirm('确认要删除吗？',function(index){
               //发异步删除数据
-              $(obj).parents("tr").remove();
-              layer.msg('已删除!',{icon:1,time:1000});
+              $.ajax({
+                  type:"delete",
+                  url:"deletePoetry",
+                  data:{poetryId:poetryId},
+                  dataType:"text",
+                  success: function (result) {
+                      if (result === "success") {
+                          $(obj).parents("tr").remove();
+                          layer.msg('已删除!',{icon:1,time:1000});
+                      } else {
+                          layer.alert("删除失败");
+                      }
+                  }
+              });
           });
       }
 
@@ -170,8 +182,20 @@
         });
         layer.confirm('确认要删除吗？'+ids.toString(),function(index){
             //捉到所有被选中的，发异步进行删除
-            layer.msg('删除成功', {icon: 1});
-            $(".layui-form-checked").not('.header').parents('tr').remove();
+            $.ajax({
+                type:"delete",
+                url:"batchDeletePoetry",
+                data:ids,
+                dataType:"text",
+                success: function (result) {
+                    if (result === "success") {
+                        layer.msg('删除成功', {icon: 1});
+                        $(".layui-form-checked").not('.header').parents('tr').remove();
+                    } else {
+                        layer.alert("删除失败");
+                    }
+                }
+            });
         });
       }
       
