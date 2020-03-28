@@ -1,7 +1,9 @@
 package com.cy.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.cy.constant.Number;
 import com.cy.service.PoetryService;
+import com.cy.util.ResultUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,8 +31,8 @@ public class AdminPoetryController extends BaseController {
         return mav;
     }
 
-    @GetMapping("loadAuthorInfo")
-    public ModelAndView loadAuthorInfo() {
+    @GetMapping("loadAuthorInfoToAdd")
+    public ModelAndView loadAuthorInfoToAdd() {
         ModelAndView mav = new ModelAndView();
         Map<String, List<Map<String, Object>>> result = poetryService.loadAuthorInfo();
         mav.addObject("authorInfoMap", result);
@@ -45,16 +47,24 @@ public class AdminPoetryController extends BaseController {
                                   @RequestParam(value = "imageUrl", required = false) String imageUrl) {
         ModelAndView mav = new ModelAndView();
         poetryService.addPoetry(poetryName, authorId, content, imageUrl);
-        try {
-            PrintWriter out = response.getWriter();
-            out.print("success");
-            //关闭流
-            out.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        ResultUtils.ajaxPrintWriter("success", response);
         mav.setViewName("admin-poetry-list");
         return mav;
+    }
+
+    @GetMapping("loadAuthorInfoToEdit")
+    public ModelAndView loadAuthorInfoToEdit() {
+        ModelAndView mav = new ModelAndView();
+        Map<String, List<Map<String, Object>>> result = poetryService.loadAuthorInfo();
+        mav.addObject("authorInfoMap", result);
+        mav.setViewName("admin-poetry-edit");
+        return mav;
+    }
+
+    @GetMapping("loadPoetryForEdit")
+    @ResponseBody
+    public JSONObject loadPoetryForEdit(@RequestParam("poetryId") int poetryId) {
+        return poetryService.loadPoetryForEdit(poetryId);
     }
 
     @PostMapping("editPoetry")
@@ -62,18 +72,10 @@ public class AdminPoetryController extends BaseController {
                                    @RequestParam("poetryName") String poetryName,
                                    @RequestParam("authorId") int authorId,
                                    @RequestParam("content") String content,
-                                   @RequestParam(value = "image", required = false) MultipartFile image) {
+                                   @RequestParam(value = "imageUrl", required = false) String imageUrl) {
         ModelAndView mav = new ModelAndView();
-        String imageUrl = null;
         poetryService.editPoetry(poetryId, poetryName, authorId, content, imageUrl);
-        try {
-            PrintWriter out = response.getWriter();
-            out.print("success");
-            //关闭流
-            out.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        ResultUtils.ajaxPrintWriter("success", response);
         mav.setViewName("admin-poetry-list");
         return mav;
     }
@@ -82,14 +84,7 @@ public class AdminPoetryController extends BaseController {
     public ModelAndView deletePoetry(@RequestParam("poetryId") int poetryId) {
         ModelAndView mav = new ModelAndView();
         poetryService.deletePoetry(poetryId);
-        try {
-            PrintWriter out = response.getWriter();
-            out.print("success");
-            //关闭流
-            out.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        ResultUtils.ajaxPrintWriter("success", response);
         mav.setViewName("admin-poetry-list");
         return mav;
     }
@@ -97,15 +92,8 @@ public class AdminPoetryController extends BaseController {
     @DeleteMapping("batchDeletePoetry")
     public ModelAndView batchDeletePoetry(@RequestParam("poetryIds") List<Integer> poetryIds) {
         ModelAndView mav = new ModelAndView();
-        System.err.println(poetryIds);
-        try {
-            PrintWriter out = response.getWriter();
-            out.print("success");
-            //关闭流
-            out.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        poetryService.batchDeletePoetry(poetryIds);
+        ResultUtils.ajaxPrintWriter("success", response);
         mav.setViewName("admin-poetry-list");
         return mav;
     }

@@ -2,6 +2,7 @@ package com.cy.service;
 
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,5 +19,7 @@ public interface AuthorService {
 	void editAuthor(int authorId, String authorName, String sex, String dynasty, String description);
 
 	void deleteAuthor(int authorId);
+
+	void batchDeleteAuthor(List<Integer> authorIds);
 
 }

@@ -11,6 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class LinkController {
 
+	@RequestMapping("register")
+	public String linkRegister() {
+		return "register";
+	}
+
 	@RequestMapping("login")
 	public String linkLogin() {
 		return "login";
@@ -27,19 +32,36 @@ public class LinkController {
 	}
 
 	@RequestMapping("admin-poetry-list")
-	public String linkMemberList() {
+	public String linkAdminPoetryList() {
 		return "forward:adminPoetryList?page=1";
 	}
 
 	@RequestMapping("admin-poetry-add")
-	public String linkMemberAdd() {
-		return "forward:loadAuthorInfo";
+	public String linkAdminPoetryAdd() {
+		return "forward:loadAuthorInfoToAdd";
 	}
 
-	@RequestMapping("member-edit")
-	public String linkMemberEdit() {
-		return "member-edit";
+	@RequestMapping("admin-poetry-edit")
+	public String linkAdminPoetryEdit() {
+		return "forward:loadAuthorInfoToEdit";
 	}
+
+	@RequestMapping("admin-author-list")
+	public String linkAdminAuthorList() {
+		return "forward:adminAuthorList?page=1";
+	}
+
+	@RequestMapping("admin-author-add")
+	public String linkAdminAuthorAdd() {
+		return "admin-author-add";
+	}
+
+	@RequestMapping("admin-author-edit")
+	public String linkAdminAuthorEdit() {
+		return "admin-author-edit";
+	}
+
+	//=======前台页面跳转========
 
 	@RequestMapping("poetry-list")
 	public String linkPoetryList() {

@@ -55,4 +55,10 @@ public class AuthorServiceImpl implements AuthorService {
 		authorMapper.deleteAuthor(authorId);
 	}
 
+	@Override
+	@Transactional
+	public void batchDeleteAuthor(List<Integer> authorIds) {
+		authorIds.forEach(authorId -> authorMapper.deleteAuthor(authorId));
+	}
+
 }

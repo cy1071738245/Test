@@ -22,7 +22,7 @@
         <div class="x-nav">
           <span class="layui-breadcrumb">
             <a href="">
-                <cite>诗词管理</cite>
+                <cite>诗人管理</cite>
             </a>
           </span>
           <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()" title="刷新">
@@ -44,7 +44,7 @@
                         </div>
                         <div class="layui-card-header">
                             <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-                            <button class="layui-btn" onclick="xadmin.open('添加诗词','admin-poetry-add',600,400)"><i class="layui-icon"></i>添加</button>
+                            <button class="layui-btn" onclick="xadmin.open('添加诗人','admin-author-add',600,400)"><i class="layui-icon"></i>添加</button>
                         </div>
                         <div class="layui-card-body layui-table-body layui-table-main">
                             <table class="layui-table layui-form" id="poetryTable">
@@ -54,28 +54,28 @@
                                         <input type="checkbox" lay-filter="checkall" name="" lay-skin="primary">
                                     </th>
                                     <th>ID</th>
-                                    <th>诗/词名</th>
-                                    <th>作者</th>
-                                    <th>内容</th>
-                                    <th>更新时间</th>
+                                    <th>诗人名</th>
+                                    <th>性别</th>
+                                    <th>朝代</th>
+                                    <th>简介</th>
                                     <th>操作</th></tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach items="${poetryResultMap.data}" var="poetryInfo">
+                                <c:forEach items="${authorResultMap.data}" var="authorInfo">
                                     <tr>
                                         <td>
-                                            <input type="checkbox" name="poetryId" value="${poetryInfo.poetryId}" lay-skin="primary">
+                                            <input type="checkbox" name="poetryId" value="${authorInfo.authorId}" lay-skin="primary">
                                         </td>
-                                        <td>${poetryInfo.poetryId}</td>
-                                        <td>${poetryInfo.title}</td>
-                                        <td>${poetryInfo.authorName}</td>
-                                        <td>${poetryInfo.content}</td>
-                                        <td>${poetryInfo.updateTime}</td>
+                                        <td>${authorInfo.authorId}</td>
+                                        <td>${authorInfo.authorName}</td>
+                                        <td>${authorInfo.sex}</td>
+                                        <td>${authorInfo.dynasty}</td>
+                                        <td>${authorInfo.description}</td>
                                         <td>
-                                            <a title="编辑"  onclick="xadmin.open('编辑','admin-poetry-edit?poetryId=' + ${poetryInfo.poetryId},600,400)" href="javascript:">
+                                            <a title="编辑"  onclick="xadmin.open('编辑','admin-author-edit?authorId=' + ${authorInfo.authorId},600,400)" href="javascript:">
                                                 <i class="layui-icon">&#xe642;</i>
                                             </a>
-                                            <a title="删除" onclick="poetryDel(this,${poetryInfo.poetryId})" href="javascript:">
+                                            <a title="删除" onclick="authorDel(this,${authorInfo.authorId})" href="javascript:">
                                                 <i class="layui-icon">&#xe640;</i>
                                             </a>
                                         </td>
@@ -87,18 +87,18 @@
                         <div class="layui-card-body ">
                             <div class="page">
                                 <div>
-                                    <c:if test="${poetryResultMap.prePage != null}">
-                                        <a class="prev" href="adminPoetryList?page=${poetryResultMap.prePage}">&lt;&lt;</a>
-                                        <a class="num" href="adminPoetryList?page=${poetryResultMap.prePage}">
-                                                ${poetryResultMap.prePage}
+                                    <c:if test="${authorResultMap.prePage != null}">
+                                        <a class="prev" href="adminAuthorList?page=${authorResultMap.prePage}">&lt;&lt;</a>
+                                        <a class="num" href="adminAuthorList?page=${authorResultMap.prePage}">
+                                                ${authorResultMap.prePage}
                                         </a>
                                     </c:if>
-                                    <span class="current">${poetryResultMap.prePage + 1}</span>
-                                    <c:if test="${poetryResultMap.nextPage != null}">
-                                        <a class="num" href="adminPoetryList?page=${poetryResultMap.nextPage}">
-                                                ${poetryResultMap.nextPage}
+                                    <span class="current">${authorResultMap.prePage + 1}</span>
+                                    <c:if test="${authorResultMap.nextPage != null}">
+                                        <a class="num" href="adminAuthorList?page=${authorResultMap.nextPage}">
+                                                ${authorResultMap.nextPage}
                                         </a>
-                                        <a class="next" href="adminPoetryList?page=${poetryResultMap.nextPage}">&gt;&gt;</a>
+                                        <a class="next" href="adminAuthorList?page=${authorResultMap.nextPage}">&gt;&gt;</a>
                                     </c:if>
                                 </div>
                             </div>
@@ -133,13 +133,13 @@
       });
 
       /*删除*/
-      function poetryDel(obj,poetryId){
+      function authorDel(obj,authorId){
           layer.confirm('确认要删除吗？',function(index){
               //发异步删除数据
               $.ajax({
                   type:"delete",
-                  url:"deletePoetry",
-                  data:{poetryId:poetryId},
+                  url:"deleteAuthor",
+                  data:{authorId:authorId},
                   dataType:"text",
                   success: function (result) {
                       if (result === "success") {
@@ -165,8 +165,8 @@
             //捉到所有被选中的，发异步进行删除
             $.ajax({
                 type:"delete",
-                url:"batchDeletePoetry",
-                data:{poetryIds:ids},
+                url:"batchDeleteAuthor",
+                data:{authorIds:ids},
                 traditional:true,
                 dataType:"text",
                 success: function (result) {
@@ -185,7 +185,7 @@
           const keyword = $("[name=keyword]").val();
           $.ajax({
               type:"get",
-              url: "adminPoetryList?page=1&keyword=" + keyword,
+              url: "adminAuthorList?page=1&keyword=" + keyword,
           })
       }
     </script>

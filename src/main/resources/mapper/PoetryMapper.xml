@@ -29,6 +29,14 @@
         values (#{poetryName}, #{authorId}, #{content}, #{imageUrl}, CURTIME())
     </insert>
 
+    <select id="getPoetryByPoetryId" resultType="java.util.Map">
+        select a.poetry_id poetryId, a.title, a.content, a.image_url imageUrl, a.update_time updateTime,
+        b.author_id authorId, b.author_name authorName
+        from poetry a, author b
+        where a.author_id = b.author_id
+        and a.poetry_id = #{poetryId}
+    </select>
+
     <update id="editPoetry">
         update poetry
         set title = #{poetryName}, author_id = #{authorId}, content = #{content}, image_url = #{imageUrl}, update_time = CURTIME()

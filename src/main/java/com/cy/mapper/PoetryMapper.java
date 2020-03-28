@@ -16,6 +16,8 @@ public interface PoetryMapper {
     int addPoetry(@Param("poetryName") String poetryName, @Param("authorId") int authorId,
                   @Param("content") String content, @Param("imageUrl") String imageUrl);
 
+    Map<String, Object> getPoetryByPoetryId(@Param("poetryId") int poetryId);
+
     int editPoetry(@Param("poetryId") int poetryId, @Param("poetryName") String poetryName, @Param("authorId") int authorId,
                   @Param("content") String content, @Param("imageUrl") String imageUrl);
 

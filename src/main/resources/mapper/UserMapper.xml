@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- 将mapper接口和配置文件对应起来 -->
+<mapper namespace="com.cy.mapper.UserMapper">
+
+    <insert id="register">
+        insert into `user` (user_name, password, real_name, update_time)
+        values (#{userName}, #{password}, #{realName}, CURTIME())
+    </insert>
+
+    <select id="login" resultType="com.cy.entity.User">
+        select user_id userId, user_name userName, real_name realName
+        from `user` where user_name = #{userName} and password = #{password}
+    </select>
+
+</mapper>

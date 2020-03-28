@@ -2,6 +2,7 @@ package com.cy.service.impl;
 
 import javax.annotation.Resource;
 
+import com.alibaba.fastjson.JSONObject;
 import com.cy.mapper.AuthorMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -66,6 +67,12 @@ public class PoetryServiceImpl implements PoetryService {
 	}
 
 	@Override
+	public JSONObject loadPoetryForEdit(int poetryId) {
+		Map<String, Object> poetryInfo = poetryMapper.getPoetryByPoetryId(poetryId);
+		return new JSONObject(poetryInfo);
+	}
+
+	@Override
 	public void editPoetry(int poetryId, String poetryName, int authorId, String content, String imageUrl) {
 		poetryMapper.editPoetry(poetryId, poetryName, authorId, content, imageUrl);
 	}
@@ -76,8 +83,9 @@ public class PoetryServiceImpl implements PoetryService {
 	}
 
 	@Override
+	@Transactional
 	public void batchDeletePoetry(List<Integer> poetryIds) {
-
+		poetryIds.forEach(poetryId -> poetryMapper.deletePoetry(poetryId));
 	}
 
 }

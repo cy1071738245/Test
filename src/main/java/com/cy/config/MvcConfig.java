@@ -19,10 +19,9 @@ public class MvcConfig implements WebMvcConfigurer {
 		LoginInterceptor loginInterceptor = new LoginInterceptor();
 		InterceptorRegistration loginRegistry = registry.addInterceptor(loginInterceptor);
 		//排除路径
-		loginRegistry.excludePathPatterns("/login", "/loginVerify", "/logout",
-				"/detail", "/poetryList*");
+		loginRegistry.excludePathPatterns("/register", "/login", "/detail", "/poetryList*");
 		//拦截路径
-		//loginRegistry.addPathPatterns("/*");
+		loginRegistry.addPathPatterns("/*");
 		
 	}
 	

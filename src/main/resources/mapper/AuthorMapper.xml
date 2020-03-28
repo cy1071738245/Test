@@ -6,7 +6,7 @@
 <mapper namespace="com.cy.mapper.AuthorMapper">
 
     <select id="getAuthorList" resultType="java.util.Map">
-        select author_id authorId, author_name authorName, sex, dynasty, description, update_time updateTime,
+        select author_id authorId, author_name authorName, sex, dynasty, description, update_time updateTime
         from author
         <where>
             <if test="keyword != null">

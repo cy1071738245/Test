@@ -3,8 +3,11 @@ package com.cy.interceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.cy.entity.User;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+
+import static java.util.Objects.isNull;
 
 /**
  * 登录拦截器
@@ -16,12 +19,9 @@ public class LoginInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		
-		/*Employee employee = (Employee) request.getSession().getAttribute("employee");
-		
-		if(employee == null) {
+		/*User user = (User) request.getSession().getAttribute("user");
+		if(isNull(user)) {
 			//未登录 返回登陆页面
-			request.setAttribute("msg", "无权限 请登录");
 			request.getRequestDispatcher("login").forward(request, response);
 			return false;
 		}else {
