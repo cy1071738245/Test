@@ -61,6 +61,21 @@ public class LinkController {
 		return "admin-author-edit";
 	}
 
+	@RequestMapping("admin-article-list")
+	public String linkAdminArticleList() {
+		return "forward:adminArticleList?page=1";
+	}
+
+	@RequestMapping("admin-article-add")
+	public String linkAdminArticleAdd() {
+		return "forward:loadPoetryInfoToAdd";
+	}
+
+	@RequestMapping("admin-article-edit")
+	public String linkAdminArticleEdit() {
+		return "forward:loadPoetryInfoToEdit";
+	}
+
 	//=======前台页面跳转========
 
 	@RequestMapping("poetry-list")
@@ -68,9 +83,14 @@ public class LinkController {
 		return "forward:poetryList?page=1";
 	}
 
-	@RequestMapping("detail")
-	public String linkDetail() {
-		return "detail";
+	@RequestMapping("article-list")
+	public String linkArticleList() {
+		return "forward:articleList?page=1";
+	}
+
+	@RequestMapping("article-detail")
+	public String linkArticleDetail() {
+		return "article-detail";
 	}
 
 }

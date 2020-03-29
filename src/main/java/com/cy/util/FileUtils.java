@@ -31,7 +31,7 @@ public class FileUtils {
 			String str = requireNonNull(file.getOriginalFilename());
 			name = UUID.randomUUID() + str.substring(str.lastIndexOf("."));
 			String fileUrl = request.getServletContext().getRealPath("/upload") + "/" + name;
-			imageUrl = request.getServletPath() + "/upload/" + name;
+			imageUrl = "http://localhost:8080/upload/" + name;
 			file.transferTo(new File(fileUrl));
 		}
 		return new JSONObject().fluentPut("src", imageUrl).fluentPut("name", name);

@@ -26,4 +26,6 @@ public interface ArticleMapper {
 
 	int deleteArticle(@Param("articleId") int articleId);
 
+	Map<String, Object> getArticleById(@Param("articleId") int articleId);
+
 }

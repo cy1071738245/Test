@@ -47,4 +47,8 @@
         delete from poetry where poetry_id = #{poetryId}
     </delete>
 
+    <select id="selectPoetryIdAndName" resultType="java.util.Map">
+        select poetry_id poetryId, title from poetry
+    </select>
+
 </mapper>

@@ -18,8 +18,10 @@ public class MvcConfig implements WebMvcConfigurer {
 		//注册拦截器
 		LoginInterceptor loginInterceptor = new LoginInterceptor();
 		InterceptorRegistration loginRegistry = registry.addInterceptor(loginInterceptor);
+		String[] excludePathPatterns = new String[]{"/register", "/login", "/detail",
+				"/poetry-list", "/poetryList*", "/articleList*", "/upload/*"};
 		//排除路径
-		loginRegistry.excludePathPatterns("/register", "/login", "/detail", "/poetryList*");
+		loginRegistry.excludePathPatterns(excludePathPatterns);
 		//拦截路径
 		loginRegistry.addPathPatterns("/*");
 		

@@ -1,6 +1,7 @@
 package com.cy.service.impl;
 
 import com.cy.mapper.ArticleMapper;
+import com.cy.mapper.PoetryMapper;
 import com.cy.service.ArticleService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -24,6 +25,8 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Resource
 	private ArticleMapper articleMapper;
+	@Resource
+	private PoetryMapper poetryMapper;
 
 	@Override
 	public Map<String, Object> getArticleList(int page, int size, String keyword) {
@@ -42,6 +45,11 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
+	public List<Map<String, Object>> loadPoetryInfo() {
+		return poetryMapper.selectPoetryIdAndName();
+	}
+
+	@Override
 	public void addArticle(String title, int userId, String content, String imageUrl, int poetryId) {
 		articleMapper.addArticle(title, userId, content, imageUrl, poetryId);
 	}
@@ -54,6 +62,18 @@ public class ArticleServiceImpl implements ArticleService {
 	@Override
 	public void deleteArticle(int articleId) {
 		articleMapper.deleteArticle(articleId);
+	}
+
+	@Override
+	public void batchDeleteArticle(List<Integer> articleIds) {
+		articleIds.forEach(articleId -> {
+			articleMapper.deleteArticle(articleId);
+		});
+	}
+
+	@Override
+	public Map<String, Object> getArticleById(int articleId) {
+		return articleMapper.getArticleById(articleId);
 	}
 
 }

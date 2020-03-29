@@ -23,4 +23,6 @@ public interface PoetryMapper {
 
     int deletePoetry(@Param("poetryId") int poetryId);
 
+    List<Map<String, Object>> selectPoetryIdAndName();
+
 }

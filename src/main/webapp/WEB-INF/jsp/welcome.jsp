@@ -1,3 +1,5 @@
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html class="x-admin-sm">
@@ -24,7 +26,8 @@
                     <div class="layui-card">
                         <div class="layui-card-body ">
                             <blockquote class="layui-elem-quote">欢迎管理员：
-                                <span class="x-red">test</span>！当前时间:2018-04-25 20:50:53
+                                <span class="x-red">${sessionScope.user.userName}</span>
+                                ！当前时间:<%=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())%>
                             </blockquote>
                         </div>
                     </div>
@@ -38,42 +41,22 @@
                                     <a href="javascript:;" class="x-admin-backlog-body">
                                         <h3>文章数</h3>
                                         <p>
-                                            <cite>66</cite></p>
+                                            <cite>66</cite>
+                                        </p>
                                     </a>
                                 </li>
                                 <li class="layui-col-md2 layui-col-xs6">
                                     <a href="javascript:;" class="x-admin-backlog-body">
-                                        <h3>会员数</h3>
+                                        <h3>诗词数</h3>
                                         <p>
                                             <cite>12</cite></p>
                                     </a>
                                 </li>
                                 <li class="layui-col-md2 layui-col-xs6">
                                     <a href="javascript:;" class="x-admin-backlog-body">
-                                        <h3>回复数</h3>
+                                        <h3>诗人数</h3>
                                         <p>
                                             <cite>99</cite></p>
-                                    </a>
-                                </li>
-                                <li class="layui-col-md2 layui-col-xs6">
-                                    <a href="javascript:;" class="x-admin-backlog-body">
-                                        <h3>商品数</h3>
-                                        <p>
-                                            <cite>67</cite></p>
-                                    </a>
-                                </li>
-                                <li class="layui-col-md2 layui-col-xs6">
-                                    <a href="javascript:;" class="x-admin-backlog-body">
-                                        <h3>文章数</h3>
-                                        <p>
-                                            <cite>67</cite></p>
-                                    </a>
-                                </li>
-                                <li class="layui-col-md2 layui-col-xs6 ">
-                                    <a href="javascript:;" class="x-admin-backlog-body">
-                                        <h3>文章数</h3>
-                                        <p>
-                                            <cite>6766</cite></p>
                                     </a>
                                 </li>
                             </ul>

@@ -90,7 +90,7 @@
                         }
                     },
                     authorId: function(value) {
-                        if (value === 0) {
+                        if (value === "0") {
                             return '作者必选项';
                         }
                     },

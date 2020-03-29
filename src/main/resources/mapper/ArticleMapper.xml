@@ -6,20 +6,21 @@
 <mapper namespace="com.cy.mapper.ArticleMapper">
 
     <select id="getArticleList" resultType="java.util.Map">
-        select a.article_id articleId, a.title, a.content, a.image_url imageUrl, poetry_id poetryId, a.update_time updateTime,
-        b.user_name userName
-        from article a left join `user` b
-        on a.user_id = b.user_id
+        select a.article_id articleId, a.title articleName, a.content, a.image_url imageUrl, a.poetry_id poetryId, a.update_time updateTime,
+        b.user_name userName, c.title poetryName from article a
+        inner join poetry c on a.poetry_id = c.poetry_id
+        left join `user` b on a.user_id = b.user_id
         <if test="keyword != null">
-            where a.title like concat('%', #{keyword}, '%')
+            where a.title like concat('%', #{keyword}, '%') or c.title like concat('%', #{keyword}, '%')
         </if>
         limit ${size * (page - 1)}, #{size}
     </select>
 
     <select id="getArticleListCount" resultType="java.lang.Integer">
-        select count(*) from article
+        select count(*) from article a, poetry b
+        where a.poetry_id = b.poetry_id
         <if test="keyword != null">
-            where title like concat('%', #{keyword}, '%')
+            and a.title like concat('%', #{keyword}, '%') or b.title like concat('%', #{keyword}, '%')
         </if>
     </select>
 
@@ -37,5 +38,13 @@
     <delete id="deleteArticle">
         delete from article where article_id = #{articleId}
     </delete>
+
+    <select id="getArticleById" resultType="java.util.Map">
+        select a.article_id articleId, a.title articleName, a.content articleContent, a.image_url imageUrl, a.poetry_id poetryId, a.update_time updateTime,
+        b.user_name userName, c.title poetryName, c.content poetryContent from article a
+        inner join poetry c on a.poetry_id = c.poetry_id
+        left join `user` b on a.user_id = b.user_id
+        where a.article_id = #{articleId}
+    </select>
 
 </mapper>

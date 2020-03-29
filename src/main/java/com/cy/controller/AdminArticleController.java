@@ -4,6 +4,8 @@ import com.cy.constant.Number;
 import com.cy.entity.User;
 import com.cy.service.ArticleService;
 import com.cy.util.FileUtils;
+import com.cy.util.ResultUtils;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -11,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,6 +21,7 @@ import java.util.Map;
  * @Description: 文章管理
  * @date 2020/3/26 16:27
  */
+@Controller
 public class AdminArticleController extends BaseController {
 
 	@Resource
@@ -32,45 +36,47 @@ public class AdminArticleController extends BaseController {
 		return mav;
 	}
 
+	@GetMapping("loadPoetryInfoToAdd")
+	public ModelAndView loadPoetryInfoToAdd() {
+		ModelAndView mav = new ModelAndView();
+		List<Map<String, Object>> result = articleService.loadPoetryInfo();
+		mav.addObject("poetryInfoList", result);
+		mav.setViewName("admin-article-add");
+		return mav;
+	}
+
 	@PostMapping("addArticle")
-	public ModelAndView addArticle(@RequestParam("title") String title,
+	public ModelAndView addArticle(@RequestParam("articleName") String articleName,
 	                               @RequestParam("content") String content,
-	                               @RequestParam(value = "image", required = false) MultipartFile image,
+	                               @RequestParam(value = "imageUrl", required = false) String imageUrl,
 	                               @RequestParam("poetryId") int poetryId) {
 		User user = (User) request.getSession().getAttribute("user");
 		ModelAndView mav = new ModelAndView();
-		String imageUrl = null;
-		articleService.addArticle(title, user.getUserId(), content, imageUrl, poetryId);
-		try {
-			PrintWriter out = response.getWriter();
-			out.print("success");
-			//关闭流
-			out.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		articleService.addArticle(articleName, user.getUserId(), content, imageUrl, poetryId);
+		ResultUtils.ajaxPrintWriter("success", response);
 		mav.setViewName("admin-article-list");
 		return mav;
 	}
 
-	@PutMapping("editArticle")
+	@GetMapping("loadPoetryInfoToEdit")
+	public ModelAndView loadPoetryInfoToEdit() {
+		ModelAndView mav = new ModelAndView();
+		List<Map<String, Object>> result = articleService.loadPoetryInfo();
+		mav.addObject("poetryInfoList", result);
+		mav.setViewName("admin-article-edit");
+		return mav;
+	}
+
+	@PostMapping("editArticle")
 	public ModelAndView editArticle(@RequestParam("articleId") int articleId,
-	                                @RequestParam("title") String title,
+									@RequestParam("articleName") String articleName,
 	                                @RequestParam("content") String content,
-	                                @RequestParam(value = "image", required = false) MultipartFile image,
+									@RequestParam(value = "imageUrl", required = false) String imageUrl,
 	                                @RequestParam("poetryId") int poetryId) {
 		ModelAndView mav = new ModelAndView();
 		User user = (User) request.getSession().getAttribute("user");
-		String imageUrl = null;
-		articleService.editArticle(articleId, title, user.getUserId(), content, imageUrl, poetryId);
-		try {
-			PrintWriter out = response.getWriter();
-			out.print("success");
-			//关闭流
-			out.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		articleService.editArticle(articleId, articleName, user.getUserId(), content, imageUrl, poetryId);
+		ResultUtils.ajaxPrintWriter("success", response);
 		mav.setViewName("admin-article-list");
 		return mav;
 	}
@@ -79,14 +85,16 @@ public class AdminArticleController extends BaseController {
 	public ModelAndView deleteArticle(@RequestParam("articleId") int articleId) {
 		ModelAndView mav = new ModelAndView();
 		articleService.deleteArticle(articleId);
-		try {
-			PrintWriter out = response.getWriter();
-			out.print("success");
-			//关闭流
-			out.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		ResultUtils.ajaxPrintWriter("success", response);
+		mav.setViewName("admin-article-list");
+		return mav;
+	}
+
+	@DeleteMapping("batchDeleteArticle")
+	public ModelAndView batchDeleteArticle(@RequestParam("articleIds") List<Integer> articleIds) {
+		ModelAndView mav = new ModelAndView();
+		articleService.batchDeleteArticle(articleIds);
+		ResultUtils.ajaxPrintWriter("success", response);
 		mav.setViewName("admin-article-list");
 		return mav;
 	}

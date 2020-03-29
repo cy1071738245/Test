@@ -48,7 +48,7 @@
                     </dl>
                 </li>
                 <li class="layui-nav-item to-index">
-                    <a href="poetry-list">前台首页</a></li>
+                    <a href="article-list">前台首页</a></li>
             </ul>
         </div>
         <!-- 顶部结束 -->
@@ -73,6 +73,12 @@
                                 <a onclick="xadmin.add_tab('诗人管理','admin-author-list')">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>诗人管理</cite>
+                                </a>
+                            </li>
+                            <li>
+                                <a onclick="xadmin.add_tab('文章管理','admin-article-list')">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>文章管理</cite>
                                 </a>
                             </li>
                         </ul>
