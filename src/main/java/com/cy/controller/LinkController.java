@@ -88,9 +88,4 @@ public class LinkController {
 		return "forward:articleList?page=1";
 	}
 
-	@RequestMapping("article-detail")
-	public String linkArticleDetail() {
-		return "article-detail";
-	}
-
 }

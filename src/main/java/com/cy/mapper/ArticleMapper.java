@@ -14,9 +14,9 @@ import java.util.Map;
 @Repository
 public interface ArticleMapper {
 
-	List<Map<String, Object>> getArticleList(@Param("page") int page, @Param("size") int size, @Param("keyword") String keyword);
+	List<Map<String, Object>> getArticleList(@Param("poetryId") Integer poetryId, @Param("page") int page, @Param("size") int size, @Param("keyword") String keyword);
 
-	int getArticleListCount(@Param("keyword") String keyword);
+	int getArticleListCount(@Param("poetryId") Integer poetryId, @Param("keyword") String keyword);
 
 	int addArticle(@Param("title") String title, @Param("userId") int userId, @Param("content") String content,
 	               @Param("imageUrl") String imageUrl, @Param("poetryId") int poetryId);

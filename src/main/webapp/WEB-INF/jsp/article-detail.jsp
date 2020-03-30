@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>书画网</title>
+    <title>诗词网</title>
     <link href="front/css/css.css" rel="stylesheet" type="text/css" />
     <script src="front/js/jquery.js"></script>
     <script src="front/js/html.js"></script>
@@ -21,8 +21,8 @@
     <div class="layout ptb_20">
         <div class="bj_fff">
             <div class="er_title">
-                <span class="fr">您现在的位置：<a href="#">文章欣赏</a>><a href="#">${articleInfo.poetryName}</a></span>
-                <i class="i0"></i><span class="t">${articleInfo.poetryName}</span>
+                <span class="fr">您现在的位置：<a href="#">诗词鉴赏</a>><a href="#">${articleInfo.poetryName}</a></span>
+                <i class="i0"></i><span class="t">${articleInfo.articleName}</span>
             </div>
             <div class="line_er"></div>
             <div class="ma_15 ov_hi">

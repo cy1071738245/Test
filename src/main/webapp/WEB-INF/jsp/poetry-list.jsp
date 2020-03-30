@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>书画网</title>
+    <title>诗词网</title>
     <link href="front/css/css.css" rel="stylesheet" type="text/css" />
     <script src="front/js/jquery.js"></script>
     <script src="front/js/html.js"></script>
@@ -21,16 +21,16 @@
     <div class="layout ptb_20">
         <div class="bj_fff">
             <div class="er_title">
-                <span class="fr">您现在的位置：<a href="#">首页</a>><a href="#">诗词列表</a></span>
-                <i class="i0"></i><span class="t">诗词列表</span>
+                <span class="fr">您现在的位置：<a href="#">诗词殿堂</a></span>
+                <i class="i0"></i><span class="t">诗词殿堂</span>
             </div>
             <div class="line_er"></div>
             <div class="ma_15 ov_hi">
                 <ul class="tw_il">
                     <c:forEach items="${poetryResultMap.data}" var="poetryInfo">
                         <li>
-                            <a href="detail"><img src="" alt=""/></a>
-                            <h2><a href="detail">${poetryInfo.title}</a></h2>
+                            <a href="articleList?page=1&poetryId=${poetryInfo.poetryId}"><img src="${poetryInfo.imageUrl}" alt=""/></a>
+                            <h2><a href="articleList?page=1&poetryId=${poetryInfo.poetryId}">${poetryInfo.title}</a></h2>
                             <div class="txt">${poetryInfo.content}</div>
                             <p class="time">${poetryInfo.updateTime}</p>
                         </li>

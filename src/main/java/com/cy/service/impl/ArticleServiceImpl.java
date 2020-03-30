@@ -14,13 +14,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author chenyu
  * @ClassName: ArticleServiceImpl
  * @Description: TODO
  * @date 2020/3/26 16:41
  */
 @Service
-@Transactional(propagation= Propagation.REQUIRED,isolation= Isolation.DEFAULT)
 public class ArticleServiceImpl implements ArticleService {
 
 	@Resource
@@ -29,10 +27,10 @@ public class ArticleServiceImpl implements ArticleService {
 	private PoetryMapper poetryMapper;
 
 	@Override
-	public Map<String, Object> getArticleList(int page, int size, String keyword) {
+	public Map<String, Object> getArticleList(Integer poetryId, int page, int size, String keyword) {
 		Map<String, Object> result = new HashMap<>();
-		List<Map<String, Object>> articleList = articleMapper.getArticleList(page, size, keyword);
-		int articleListCount = articleMapper.getArticleListCount(keyword);
+		List<Map<String, Object>> articleList = articleMapper.getArticleList(poetryId, page, size, keyword);
+		int articleListCount = articleMapper.getArticleListCount(poetryId, keyword);
 		Integer prePage = page < 2 ? null : page - 1;
 		Integer nextPage = page + 1 > ((articleListCount % size) == 0
 				? articleListCount / size
@@ -65,6 +63,7 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
+	@Transactional
 	public void batchDeleteArticle(List<Integer> articleIds) {
 		articleIds.forEach(articleId -> {
 			articleMapper.deleteArticle(articleId);

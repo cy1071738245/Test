@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public interface ArticleService {
 
-	Map<String, Object> getArticleList(int page, int size, String keyword);
+	Map<String, Object> getArticleList(Integer poetryId, int page, int size, String keyword);
 
 	List<Map<String, Object>> loadPoetryInfo();
 

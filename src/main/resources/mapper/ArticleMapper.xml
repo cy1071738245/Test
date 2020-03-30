@@ -10,15 +10,23 @@
         b.user_name userName, c.title poetryName from article a
         inner join poetry c on a.poetry_id = c.poetry_id
         left join `user` b on a.user_id = b.user_id
-        <if test="keyword != null">
-            where a.title like concat('%', #{keyword}, '%') or c.title like concat('%', #{keyword}, '%')
-        </if>
+        <where>
+            <if test="poetryId != null">
+                and c.poetry_id = #{poetryId}
+            </if>
+            <if test="keyword != null">
+                and a.title like concat('%', #{keyword}, '%') or c.title like concat('%', #{keyword}, '%')
+            </if>
+        </where>
         limit ${size * (page - 1)}, #{size}
     </select>
 
     <select id="getArticleListCount" resultType="java.lang.Integer">
         select count(*) from article a, poetry b
         where a.poetry_id = b.poetry_id
+        <if test="poetryId != null">
+            and b.poetry_id = #{poetryId}
+        </if>
         <if test="keyword != null">
             and a.title like concat('%', #{keyword}, '%') or b.title like concat('%', #{keyword}, '%')
         </if>

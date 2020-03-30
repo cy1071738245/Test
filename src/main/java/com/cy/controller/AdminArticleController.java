@@ -30,7 +30,7 @@ public class AdminArticleController extends BaseController {
 	@GetMapping("adminArticleList")
 	public ModelAndView adminArticleList(@RequestParam("page") int page, @RequestParam(value = "keyword", required = false) String keyword) {
 		ModelAndView mav = new ModelAndView();
-		Map<String, Object> result = articleService.getArticleList(page, Number.size, keyword);
+		Map<String, Object> result = articleService.getArticleList(null, page, Number.size, keyword);
 		mav.addObject("articleResultMap", result);
 		mav.setViewName("admin-article-list");
 		return mav;

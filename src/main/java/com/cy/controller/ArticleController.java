@@ -23,9 +23,11 @@ public class ArticleController {
 	private ArticleService articleService;
 
 	@GetMapping("articleList")
-	public ModelAndView articleList(@RequestParam("page") int page, @RequestParam(value = "keyword", required = false) String keyword) {
+	public ModelAndView articleList(@RequestParam(value = "poetryId", required = false) Integer poetryId,
+	                                @RequestParam("page") int page,
+	                                @RequestParam(value = "keyword", required = false) String keyword) {
 		ModelAndView mav = new ModelAndView();
-		Map<String, Object> result = articleService.getArticleList(page, Number.size, keyword);
+		Map<String, Object> result = articleService.getArticleList(poetryId, page, Number.size, keyword);
 		mav.addObject("articleResultMap", result);
 		mav.setViewName("article-list");
 		return mav;
@@ -39,5 +41,5 @@ public class ArticleController {
 		mav.setViewName("article-detail");
 		return mav;
 	}
-	
+
 }
