@@ -40,6 +40,15 @@ public class AdminPoetryController extends BaseController {
         return mav;
     }
 
+    /**
+     * 添加诗词
+     *
+     * @param poetryName 诗词名
+     * @param authorId 作者id
+     * @param content 内容
+     * @param imageUrl 图片链接
+     * @return ModelAndView
+     */
     @PostMapping("addPoetry")
     public ModelAndView addPoetry(@RequestParam("poetryName") String poetryName,
                                   @RequestParam("authorId") int authorId,
@@ -67,6 +76,16 @@ public class AdminPoetryController extends BaseController {
         return poetryService.loadPoetryForEdit(poetryId);
     }
 
+    /**
+     * 修改诗词
+     *
+     * @param poetryId 诗词id
+     * @param poetryName 诗词名
+     * @param authorId 作者id
+     * @param content 内容
+     * @param imageUrl 图片链接
+     * @return ModelAndView
+     */
     @PostMapping("editPoetry")
     public ModelAndView editPoetry(@RequestParam("poetryId") int poetryId,
                                    @RequestParam("poetryName") String poetryName,
@@ -80,6 +99,12 @@ public class AdminPoetryController extends BaseController {
         return mav;
     }
 
+    /**
+     * 删除诗词
+     *
+     * @param poetryId 诗词id
+     * @return ModelAndView
+     */
     @DeleteMapping("deletePoetry")
     public ModelAndView deletePoetry(@RequestParam("poetryId") int poetryId) {
         ModelAndView mav = new ModelAndView();

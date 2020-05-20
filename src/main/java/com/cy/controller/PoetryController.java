@@ -24,6 +24,13 @@ public class PoetryController {
 	@Resource
 	private PoetryService poetryService;
 
+	/**
+	 * 诗词列表
+	 *
+	 * @param page 页数
+	 * @param keyword 搜索关键词
+	 * @return ModelAndView
+	 */
 	@GetMapping("poetryList")
 	public ModelAndView poetryList(@RequestParam("page") int page, @RequestParam(value = "keyword", required = false) String keyword) {
 		ModelAndView mav = new ModelAndView();

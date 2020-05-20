@@ -27,8 +27,16 @@ public class AdminArticleController extends BaseController {
 	@Resource
 	private ArticleService articleService;
 
+	/**
+	 * 分页查询文章列表
+	 *
+	 * @param page 页数
+	 * @param keyword 关键词
+	 * @return ModelAndView
+	 */
 	@GetMapping("adminArticleList")
-	public ModelAndView adminArticleList(@RequestParam("page") int page, @RequestParam(value = "keyword", required = false) String keyword) {
+	public ModelAndView adminArticleList(@RequestParam("page") int page,
+										 @RequestParam(value = "keyword", required = false) String keyword) {
 		ModelAndView mav = new ModelAndView();
 		Map<String, Object> result = articleService.getArticleList(null, page, Number.size, keyword);
 		mav.addObject("articleResultMap", result);
@@ -45,6 +53,15 @@ public class AdminArticleController extends BaseController {
 		return mav;
 	}
 
+	/**
+	 * 添加文章
+	 *
+	 * @param articleName 文章标题
+	 * @param content 文章内容
+	 * @param imageUrl 图片链接
+	 * @param poetryId 关联诗词id
+	 * @return ModelAndView
+	 */
 	@PostMapping("addArticle")
 	public ModelAndView addArticle(@RequestParam("articleName") String articleName,
 	                               @RequestParam("content") String content,

@@ -24,8 +24,16 @@ public class AdminAuthorController extends BaseController {
 	@Resource
 	private AuthorService authorService;
 
+	/**
+	 * 诗人管理分页查询
+	 *
+	 * @param page 页数
+	 * @param keyword 查询关键词
+	 * @return ModelAndView
+	 */
 	@GetMapping("adminAuthorList")
-	public ModelAndView adminAuthorList(@RequestParam("page") int page, @RequestParam(value = "keyword", required = false) String keyword) {
+	public ModelAndView adminAuthorList(@RequestParam("page") int page,
+										@RequestParam(value = "keyword", required = false) String keyword) {
 		ModelAndView mav = new ModelAndView();
 		Map<String, Object> result = authorService.getAuthorList(page, Number.size, keyword);
 		mav.addObject("authorResultMap", result);
@@ -33,6 +41,15 @@ public class AdminAuthorController extends BaseController {
 		return mav;
 	}
 
+	/**
+	 * 添加诗人
+	 *
+	 * @param authorName 诗人名
+	 * @param sex 性别
+	 * @param dynasty 朝代
+	 * @param description 简介
+	 * @return ModelAndView
+	 */
 	@PostMapping("addAuthor")
 	public ModelAndView addAuthor(@RequestParam("authorName") String authorName,
 	                              @RequestParam("sex") String sex,
@@ -45,6 +62,16 @@ public class AdminAuthorController extends BaseController {
 		return mav;
 	}
 
+	/**
+	 * 编辑诗人信息
+	 *
+	 * @param authorId 诗人id
+	 * @param authorName 诗人名
+	 * @param sex 性别
+	 * @param dynasty 朝代
+	 * @param description 诗人简介
+	 * @return ModelAndView
+	 */
 	@PostMapping("editAuthor")
 	public ModelAndView editAuthor(@RequestParam("authorId") int authorId,
 	                               @RequestParam("authorName") String authorName,
@@ -67,6 +94,12 @@ public class AdminAuthorController extends BaseController {
 		return mav;
 	}
 
+	/**
+	 * 批量删除诗人
+	 *
+	 * @param authorIds 诗人id
+	 * @return ModelAndView
+	 */
 	@DeleteMapping("batchDeleteAuthor")
 	public ModelAndView batchDeleteAuthor(@RequestParam("authorIds") List<Integer> authorIds) {
 		ModelAndView mav = new ModelAndView();

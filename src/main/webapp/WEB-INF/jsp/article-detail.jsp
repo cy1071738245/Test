@@ -39,11 +39,14 @@
                     <p>&nbsp;&nbsp;&nbsp;&nbsp;
                         ${articleInfo.articleContent}
                     </p>
+                    <br /><br /><br />
+                    <p class="time" style="text-align: right">编辑：${articleInfo.userName}</p>
                     <br />
                 </div>
             </div>
         </div>
     </div>
+    
 </div>
 <div id="footer">
     <div class="layout">

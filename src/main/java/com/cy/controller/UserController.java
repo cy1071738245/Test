@@ -30,6 +30,12 @@ public class UserController extends BaseController{
         }
     }
 
+    /**
+     * 登录
+     *
+     * @param userName 用户名
+     * @param password 登录密码
+     */
     @PostMapping("login")
     public void login(@RequestParam("userName") String userName,
                            @RequestParam("password") String password) {

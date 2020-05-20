@@ -28,9 +28,12 @@
             <div class="ma_15 ov_hi">
                 <ul class="tw_il">
                     <c:forEach items="${poetryResultMap.data}" var="poetryInfo">
-                        <li>
+                        <li style="height: 200px">
                             <a href="articleList?page=1&poetryId=${poetryInfo.poetryId}"><img src="${poetryInfo.imageUrl}" alt=""/></a>
                             <h2><a href="articleList?page=1&poetryId=${poetryInfo.poetryId}">${poetryInfo.title}</a></h2>
+                            <br/>
+                            <p class="time" style="text-align: left">${poetryInfo.authorName}</p>
+                            <br/>
                             <div class="txt">${poetryInfo.content}</div>
                             <p class="time">${poetryInfo.updateTime}</p>
                         </li>
