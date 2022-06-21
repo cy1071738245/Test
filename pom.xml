@@ -47,7 +47,7 @@
 		<dependency>
 	      <groupId>mysql</groupId>
 	      <artifactId>mysql-connector-java</artifactId>
-	      <version>8.0.11</version><!--$NO-MVN-MAN-VER$-->
+	      <version>8.0.28</version><!--$NO-MVN-MAN-VER$-->
 	    </dependency>
 		<!-- 模板引擎Thymeleaf依赖（不同的模板引擎依赖不能共存，比如jsp） -->
 		<!-- <dependency>
